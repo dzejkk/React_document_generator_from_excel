@@ -2,66 +2,74 @@ import { useState } from "react";
 import ExcelUploader from "./components/ExcelUploader";
 import DocumentPreview from "./components/DocumentPreview";
 
-import style from "./App.module.css";
+import "./App.module.css";
 
-export default function App() {
-  const [documentData, setDocumentData] = useState("null");
+function App() {
+  const [invoiceData, setInvoiceData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExcelData = (data) => {
-    setDocumentData(data);
+    setInvoiceData(data);
   };
 
   return (
-    <div className={style.container}>
-      <div className={style.wrapper}>
-        <header className={style.header}>
-          <h1 className={style.headerHeading}>Document generator</h1>
-          <p>Upload your excel file to generate Profesional Document</p>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        <header className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Invoice Generator
+          </h1>
+          <p className="text-gray-600">
+            Upload your Excel file to generate professional invoices
+          </p>
         </header>
 
-        <div className={style.gridContainer}>
-          {/*left column - excle upload*/}
-          <div>
-            <h2>Upload Excel File</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Excel Upload */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Upload Excel File</h2>
             <ExcelUploader
               onDataExtracted={handleExcelData}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
 
-            {/*Show parsed data preview*/}
-            {documentData && (
-              <div>
-                <h3>Parsed data Preview:</h3>
-                <div>
+            {/* Show parsed data preview */}
+            {invoiceData && (
+              <div className="mt-6 p-4 bg-gray-50 rounded-md">
+                <h3 className="font-medium text-gray-900 mb-2">
+                  Parsed Data Preview:
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
                   <p>
-                    <span>Client:</span> {documentData.clientName || "N/A"}
+                    <span className="font-medium">Name:</span>{" "}
+                    {invoiceData.clientName || "N/A"}
                   </p>
                   <p>
-                    <span>Invoice #:</span>{" "}
-                    {documentData.invoiceNumber || "N/A"}
+                    <span className="font-medium">ID:</span>{" "}
+                    {invoiceData.invoiceNumber || "N/A"}
                   </p>
                   <p>
-                    <span>Amount:</span> ${documentData.amount || "0.00"}
+                    <span className="font-medium">Date:</span>{" "}
+                    {invoiceData.date || "N/A"}
                   </p>
                   <p>
-                    <span>Date:</span> {documentData.date || "N/A"}
+                    <span className="font-medium">Department:</span>{" "}
+                    {invoiceData.clientAddress || "N/A"}
                   </p>
                 </div>
               </div>
             )}
           </div>
 
-          {/*right column - PDF preview */}
-
-          <div>
-            <h2>Invoice Preview</h2>
-            {documentData ? (
-              <DocumentPreview data={documentData} />
+          {/* Right Column - PDF Preview/Generation */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Invoice Preview</h2>
+            {invoiceData ? (
+              <DocumentPreview data={invoiceData} />
             ) : (
-              <div>
-                <p>Upload your excel file to see your pdf document</p>
+              <div className="text-center py-12 text-gray-500">
+                <p>Upload an Excel file to see your invoice preview</p>
               </div>
             )}
           </div>
@@ -70,3 +78,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

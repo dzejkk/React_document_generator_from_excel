@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState, useCallback } from "react";
 import * as XLSX from "xlsx";
 
 const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
@@ -34,61 +34,44 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
           const lastRow = jsonData[jsonData.length - 1];
 
           // Map Excel columns to our invoice data structure
-          // You can customize these mappings based on your Excel structure
+          // Mapping your actual column headers to invoice fields
           const invoiceData = {
             // Basic invoice info
-            invoiceNumber:
-              lastRow["Invoice Number"] ||
-              lastRow["InvoiceNumber"] ||
-              lastRow["Invoice_Number"] ||
-              `INV-${Date.now()}`,
+            invoiceNumber: lastRow["ID1"] || `INV-${Date.now()}`,
             date: formatDate(
-              lastRow["Date"] || lastRow["Invoice Date"] || new Date()
+              lastRow["Date of confirmation of disease"] || new Date()
             ),
-            dueDate: formatDate(
-              lastRow["Due Date"] ||
-                lastRow["DueDate"] ||
-                addDays(new Date(), 30)
-            ),
+            dueDate: formatDate(addDays(new Date(), 30)), // 30 days from today
 
-            // Client information
+            // Client information (using Full Name as client)
             clientName:
-              lastRow["Client Name"] ||
-              lastRow["ClientName"] ||
-              lastRow["Client"] ||
-              "Client Name Missing",
-            clientAddress:
-              lastRow["Client Address"] ||
-              lastRow["ClientAddress"] ||
-              lastRow["Address"] ||
-              "",
-            clientEmail:
-              lastRow["Client Email"] ||
-              lastRow["ClientEmail"] ||
-              lastRow["Email"] ||
-              "",
-            clientPhone:
-              lastRow["Client Phone"] ||
-              lastRow["ClientPhone"] ||
-              lastRow["Phone"] ||
-              "",
+              lastRow["Full Name (of the subject )"] || "Name Missing",
+            clientAddress: lastRow["Department"] || "",
+            clientEmail: lastRow["Email"] || "",
+            clientPhone: "", // Not available in your data
 
-            // Company info (you can hardcode these or add to Excel)
-            companyName: lastRow["Company Name"] || "Your Company Name",
-            companyAddress:
-              lastRow["Company Address"] || "Your Company Address",
-            companyPhone: lastRow["Company Phone"] || "Your Phone Number",
-            companyEmail: lastRow["Company Email"] || "your@email.com",
+            // Company info (you can hardcode these)
+            companyName: "Your Company Name",
+            companyAddress: "Your Company Address",
+            companyPhone: "Your Phone Number",
+            companyEmail: "your@email.com",
 
-            // Invoice items - support both single item and multiple items
-            items: parseInvoiceItems(lastRow),
+            // Invoice items - create from your data
+            items: [
+              {
+                description: `${lastRow["Working Line"] || "Service"} - ${
+                  lastRow["Positions"] || "Position"
+                }`,
+                quantity: 1,
+                rate: 1000.0, // You can set default rate or add this to Excel
+                amount: 1000.0,
+              },
+            ],
 
-            // Calculations
-            subtotal: parseFloat(lastRow["Subtotal"] || lastRow["Amount"] || 0),
-            taxRate: parseFloat(
-              lastRow["Tax Rate"] || lastRow["TaxRate"] || 0.1
-            ), // 10% default
-            notes: lastRow["Notes"] || lastRow["Description"] || "",
+            // Calculations (you can set defaults or add to Excel)
+            subtotal: 1000.0,
+            taxRate: 0.1, // 10% default
+            notes: `Risk Category: ${lastRow["Risk Category"] || "N/A"}`,
           };
 
           // Calculate totals
@@ -115,33 +98,6 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
     },
     [onDataExtracted, setIsLoading]
   );
-
-  // Helper function to parse invoice items
-  const parseInvoiceItems = (row) => {
-    // Try to find item data in various column formats
-    const items = [];
-
-    // Single item format
-    const description =
-      row["Description"] ||
-      row["Item Description"] ||
-      row["Service"] ||
-      "Service Provided";
-    const quantity = parseFloat(row["Quantity"] || row["Qty"] || 1);
-    const rate = parseFloat(row["Rate"] || row["Price"] || row["Amount"] || 0);
-
-    items.push({
-      description,
-      quantity,
-      rate,
-      amount: quantity * rate,
-    });
-
-    // TODO: Add support for multiple items if needed
-    // You can extend this to parse multiple item columns like Item1, Item2, etc.
-
-    return items;
-  };
 
   // Helper functions
   const formatDate = (dateValue) => {
@@ -283,11 +239,11 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
           <li>
-            • Column headers should include: Client Name, Invoice Number, Date,
-            Amount, Description
+            • Column headers should include: Full Name, ID1, Date of
+            confirmation of disease, Working Line, Department
           </li>
           <li>
-            • The last row in your Excel sheet will be used for the invoice
+            • The last row in your Excel sheet will be used for the document
           </li>
           <li>• Supported formats: .xlsx, .xls</li>
         </ul>

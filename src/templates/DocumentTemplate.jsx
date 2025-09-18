@@ -252,7 +252,7 @@ const DocumentTemplate = ({ data }) => {
         month: "long",
         day: "numeric",
       });
-    } catch (e) {
+    } catch {
       return "N/A";
     }
   };
