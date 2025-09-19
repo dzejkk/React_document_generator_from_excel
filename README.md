@@ -1,12 +1,9 @@
-# React + Vite
+# Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## React + Vite + react-pdf/renderer + xlsx
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+simple app, to read excel file, its reading last row and extracting data form it, and creating custom pdf
+file for simple printing.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+In the future  i want oadd feature that it wil create multiple different pdfs, from same data

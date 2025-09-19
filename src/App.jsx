@@ -2,7 +2,7 @@ import { useState } from "react";
 import ExcelUploader from "./components/ExcelUploader";
 import DocumentPreview from "./components/DocumentPreview";
 
-import "./App.module.css";
+import style from "./App.module.css";
 
 function App() {
   const [invoiceData, setInvoiceData] = useState(null);
@@ -13,20 +13,19 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-6xl mx-auto px-4">
-        <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Invoice Generator
-          </h1>
-          <p className="text-gray-600">
-            Upload your Excel file to generate professional invoices
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className={style.mainContainer}>
+      <div className={style.seconadaryContainer}>
+        <div className={style.flexRow}>
           {/* Left Column - Excel Upload */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className={style.leftColumn}>
+            <header className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Document Generator
+              </h1>
+              <p className="text-gray-600">
+                Upload your Excel file to generate professional documents
+              </p>
+            </header>
             <h2 className="text-xl font-semibold mb-4">Upload Excel File</h2>
             <ExcelUploader
               onDataExtracted={handleExcelData}
