@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import * as XLSX from "xlsx";
+import style from "./ExcelUploader.module.css";
 
 const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -146,13 +147,11 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className={style.container}>
       {/* File Upload Area */}
       <div
-        className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-          isDragOver
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 hover:border-gray-400"
+        className={`${style.dropArea} ${
+          isDragOver ? style.dragOver : style.dropArea
         }`}
         onDragOver={(e) => {
           e.preventDefault();
@@ -183,21 +182,16 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
                 />
               </svg>
             </div>
-            <p className="text-lg font-medium text-gray-900 mb-2">
-              Drop your Excel file here
-            </p>
-            <p className="text-gray-600 mb-4">or click to browse files</p>
+            <p className={style.Instruction}>Drop your Excel file here</p>
+            <p>or click to browse files</p>
             <input
               type="file"
               accept=".xlsx,.xls"
               onChange={handleFileChange}
-              className="hidden"
+              className={style.hidden}
               id="file-upload"
             />
-            <label
-              htmlFor="file-upload"
-              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 cursor-pointer inline-block transition-colors"
-            >
+            <label htmlFor="file-upload" className={style.uploadButton}>
               Choose File
             </label>
             {fileName && (
@@ -233,19 +227,19 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
       )}
 
       {/* Instructions */}
-      <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
+      <div className={style.formatRequirements}>
         <h4 className="text-sm font-medium text-blue-900 mb-2">
           Excel File Format:
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
           <li>
-            • Column headers should include: Full Name, ID1, Date of
-            confirmation of disease, Working Line, Department
+            Column headers should include: Full Name, ID1, Date of confirmation
+            of disease, Working Line, Department
           </li>
           <li>
-            • The last row in your Excel sheet will be used for the document
+            The last row in your Excel sheet will be used for the document
           </li>
-          <li>• Supported formats: .xlsx, .xls</li>
+          <li>Supported formats: .xlsx, .xls</li>
         </ul>
       </div>
     </div>
