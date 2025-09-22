@@ -1,0 +1,56 @@
+.documentPreview {
+}
+
+.pdfDocumentModal {
+  height: 66rem;
+}
+
+.pdfContent {
+  background-color: aliceblue;
+}
+
+.button {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-content);
+  padding-block: var(--padding-sm);
+  padding-inline: var(--padding-md);
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  border-radius: var(--size-selector);
+  border: none;
+  width: 13rem;
+  font-size: 1rem;
+}
+
+.button:hover {
+  filter: brightness(1.2);
+}
+
+.link {
+  background-color: var(--color-info);
+  color: var(--color-info-content);
+  padding-block: var(--padding-sm);
+  padding-inline: var(--padding-md);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  border-radius: var(--size-selector);
+  border: none;
+  width: 13rem;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.link:hover {
+  filter: brightness(1.2);
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  padding-block: var(--padding-sm);
+}

@@ -13,8 +13,8 @@
 
 .dragOver {
   border-color: var(--color-accent);
-  background-color: var(--color-base-300);
-  filter: drop-shadow(5px 5px red); /*wtf skus to doladit*/
+  background-color: var(--color-base-200);
+  box-shadow: 0 0 0.75rem var(--color-accent); /*wtf skus to doladit*/
 }
 
 .formatRequirements {

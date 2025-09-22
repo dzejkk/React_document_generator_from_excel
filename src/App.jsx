@@ -18,15 +18,11 @@ function App() {
         <div className={style.flexRow}>
           {/* Left Column - Excel Upload */}
           <div className={style.leftColumn}>
-            <header className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Document Generator
-              </h1>
-              <p className="text-gray-600">
-                Upload your Excel file to generate professional documents
-              </p>
+            <header>
+              <h1>Document Generator</h1>
+              <p>Upload your Excel file to generate professional documents</p>
             </header>
-            <h2 className="text-xl font-semibold mb-4">Upload Excel File</h2>
+            <h2>Upload Excel File</h2>
             <ExcelUploader
               onDataExtracted={handleExcelData}
               isLoading={isLoading}
@@ -35,14 +31,11 @@ function App() {
 
             {/* Show parsed data preview */}
             {invoiceData && (
-              <div className="mt-6 p-4 bg-gray-50 rounded-md">
-                <h3 className="font-medium text-gray-900 mb-2">
-                  Parsed Data Preview:
-                </h3>
-                <div className="text-sm text-gray-600 space-y-1">
+              <div>
+                <h3>Parsed Data Preview:</h3>
+                <div>
                   <p>
-                    <span className="font-medium">Name:</span>{" "}
-                    {invoiceData.clientName || "N/A"}
+                    <span>Name:</span> {invoiceData.clientName || "N/A"}
                   </p>
                   <p>
                     <span className="font-medium">ID:</span>{" "}
@@ -62,13 +55,15 @@ function App() {
           </div>
 
           {/* Right Column - PDF Preview/Generation */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Invoice Preview</h2>
+          <div className={style.invoicePreviewContainer}>
+            <h2 className={style.invoiceHeader}>Invoice Preview</h2>
             {invoiceData ? (
               <DocumentPreview data={invoiceData} />
             ) : (
-              <div className="text-center py-12 text-gray-500">
-                <p>Upload an Excel file to see your invoice preview</p>
+              <div className={style.invoicePreviewInstructions}>
+                <p className={style.paragraph}>
+                  Upload an Excel file to see your invoice preview
+                </p>
               </div>
             )}
           </div>
