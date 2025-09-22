@@ -194,9 +194,7 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
             <label htmlFor="file-upload" className={style.uploadButton}>
               Choose File
             </label>
-            {fileName && (
-              <p className="text-sm text-gray-600 mt-2">Selected: {fileName}</p>
-            )}
+            {fileName && <p className={style.selected}>Selected: {fileName}</p>}
           </>
         )}
       </div>

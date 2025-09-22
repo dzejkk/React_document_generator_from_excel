@@ -41,5 +41,10 @@
   margin: auto;
   text-align: center;
   color: var(--color-base-content);
-  margin-top: var(--padding-sm);
+  margin-top: var(--padding-md);
+}
+
+.appParagraph {
+  font-weight: 600;
+  color: var(--color-primary);
 }

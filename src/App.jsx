@@ -5,11 +5,11 @@ import DocumentPreview from "./components/DocumentPreview";
 import style from "./App.module.css";
 
 function App() {
-  const [invoiceData, setInvoiceData] = useState(null);
+  const [documentData, setDocumentDatadocumentData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExcelData = (data) => {
-    setInvoiceData(data);
+    setDocumentDatadocumentData(data);
   };
 
   return (
@@ -20,7 +20,9 @@ function App() {
           <div className={style.leftColumn}>
             <header>
               <h1>Document Generator</h1>
-              <p>Upload your Excel file to generate professional documents</p>
+              <p className={style.appParagraph}>
+                Upload your Excel file to generate professional documents
+              </p>
             </header>
             <h2>Upload Excel File</h2>
             <ExcelUploader
@@ -30,24 +32,24 @@ function App() {
             />
 
             {/* Show parsed data preview */}
-            {invoiceData && (
+            {documentData && (
               <div>
                 <h3>Parsed Data Preview:</h3>
                 <div>
                   <p>
-                    <span>Name:</span> {invoiceData.clientName || "N/A"}
+                    <span>Name:</span> {documentData.clientName || "N/A"}
                   </p>
                   <p>
                     <span className="font-medium">ID:</span>{" "}
-                    {invoiceData.invoiceNumber || "N/A"}
+                    {documentData.invoiceNumber || "N/A"}
                   </p>
                   <p>
                     <span className="font-medium">Date:</span>{" "}
-                    {invoiceData.date || "N/A"}
+                    {documentData.date || "N/A"}
                   </p>
                   <p>
                     <span className="font-medium">Department:</span>{" "}
-                    {invoiceData.clientAddress || "N/A"}
+                    {documentData.clientAddress || "N/A"}
                   </p>
                 </div>
               </div>
@@ -56,13 +58,13 @@ function App() {
 
           {/* Right Column - PDF Preview/Generation */}
           <div className={style.invoicePreviewContainer}>
-            <h2 className={style.invoiceHeader}>Invoice Preview</h2>
-            {invoiceData ? (
-              <DocumentPreview data={invoiceData} />
+            <h2 className={style.invoiceHeader}>Document Preview</h2>
+            {documentData ? (
+              <DocumentPreview data={documentData} />
             ) : (
               <div className={style.invoicePreviewInstructions}>
                 <p className={style.paragraph}>
-                  Upload an Excel file to see your invoice preview
+                  Upload an Excel file to see your document preview
                 </p>
               </div>
             )}

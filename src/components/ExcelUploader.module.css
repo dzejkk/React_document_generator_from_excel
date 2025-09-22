@@ -46,3 +46,9 @@
 .uploadButton:hover {
   filter: brightness(1.2);
 }
+
+.selected {
+  color: var(--color-warning-content);
+  background-color: var(--color-warning);
+  border-radius: var(--size-field);
+}
