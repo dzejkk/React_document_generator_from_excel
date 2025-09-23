@@ -5,7 +5,10 @@ import {
   View,
   StyleSheet,
   Font,
+  Image,
 } from "@react-pdf/renderer";
+
+import logoSoc from "../assets/logo_soc.png";
 
 Font.register({
   family: "Roboto",
@@ -25,7 +28,7 @@ Font.register({
 
 const styles = StyleSheet.create({
   page: {
-    padding: 30,
+    padding: 40,
     fontSize: 10,
     lineHeight: 1.3,
     fontFamily: "Roboto",
@@ -40,6 +43,32 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     margin: 4,
+  },
+
+  rowTwo: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingLeft: 80,
+    marginBottom: 6,
+  },
+
+  headerTwo: {
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: 8,
+  },
+  subtitle: {
+    textAlign: "center",
+    margin: 6,
+  },
+  crossed: {
+    textDecoration: "line-through",
+    marginLeft: 4,
+  },
+  logo: {
+    width: 140,
+    margin: 6,
   },
 });
 
@@ -60,20 +89,33 @@ const DocumentTemplate = ({ data }) => {
       <Page style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>SOCIÁLNA POISTOVNÁ</Text>
+          {" "}
+          <Image src={logoSoc} style={styles.logo} />
         </View>
 
         {/* Subtitle */}
+
+        <Text style={styles.headerTwo}>Oznámenie poistnej udalosti </Text>
+
         <Text style={styles.subtitle}>
-          Oznámenie poistnej udalosti k úrazovému poisteniu podľa § 231 ods. 1
-          písm. h) až j) zákona č. 461/2003 Z. z. o sociálnom poistení v znení
-          neskorších predpisov (ďalej len „zákon“)
+          k úrazovému poisteniu podľa § 231 ods. 1 písm. h) až j) zákona č.
+          461/2003 Z. z. o sociálnom poistení v znení neskorších predpisov
+          (ďalej len „zákon“)
         </Text>
 
         {/* Section Title */}
-        <Text style={styles.sectionTitle}>
-          Poistná udalosť: pracovný úraz / choroba z povolania X
-        </Text>
+
+        <View style={styles.row}>
+          <Text style={styles.label}>Poistná udalosť:</Text>
+
+          <Text style={styles.crossed}>pracovný úraz</Text>
+          <Text style={styles.value}></Text>
+        </View>
+
+        <View style={styles.rowTwo}>
+          <Text style={styles.label}>choroba z povolania</Text>
+          <Text style={styles.value}>X</Text>
+        </View>
 
         {/* Form Rows */}
         <View style={styles.row}>
