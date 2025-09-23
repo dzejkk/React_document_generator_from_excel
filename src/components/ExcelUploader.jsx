@@ -48,6 +48,8 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
               ) || "data missing",
             CHZP_Location_line: lastRow["Working Line"] || "data missing",
             CHZP_Location_shop: lastRow["Department"] || "data missing",
+            CHZP_Factor:
+              lastRow["Description of the  harmfull factor"] ?? "data missing",
 
             // Client information (using Full Name as client)
             clientName:
