@@ -1,4 +1,16 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+} from "@react-pdf/renderer";
+
+Font.register({
+  family: "Roboto",
+  src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+}); // need for Slovak Language
 
 // PDF Styles
 const styles = StyleSheet.create({
@@ -6,7 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#ffffff",
     padding: 30,
-    fontFamily: "Helvetica",
+    fontFamily: "Roboto",
   },
 
   // Header Section
@@ -46,19 +58,14 @@ const styles = StyleSheet.create({
 
   // Invoice Info Section
   invoiceInfo: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     marginBottom: 30,
   },
 
-  invoiceDetails: {
-    flex: 1,
-  },
+  invoiceDetails: {},
 
-  clientInfo: {
-    flex: 1,
-    marginLeft: 40,
-  },
+  clientInfo: {},
 
   sectionTitle: {
     fontSize: 12,
@@ -286,10 +293,16 @@ const DocumentTemplate = ({ data }) => {
           <View style={styles.invoiceDetails}>
             <Text style={styles.sectionTitle}>Invoice Details</Text>
             <Text style={styles.detailText}>
-              Invoice Number: {data.invoiceNumber || "N/A"}
+              5. DÁTUM VZNIKU POISTNEJ UDALOSTI (ĎALEJ LEN „PU") v dôsledku
+              pracovného úrazu - dátum vzniku pracovného úrazu: - - - v dôsledku
+              choroby z povolania - dátum zistenia choroby z povolania dňa:
+              {data.CHZP_Detection || "N/A"}
             </Text>
             <Text style={styles.detailText}>
-              Invoice Date: {formatDate(data.date)}
+              6. Miesto vzniku PU (ulica, obec, PSČ, okres, prípadne označenie
+              pracoviska): Kia Slovakia s.r.o., Sv. Jána Nepomuckého 1282/1,
+              Teplička nad Váhom 013 01, {data.CHZP_Location_shop}
+              {data.CHZP_Location_line || "N/A"}
             </Text>
             <Text style={styles.detailText}>
               Due Date: {formatDate(data.dueDate)}
@@ -307,9 +320,10 @@ const DocumentTemplate = ({ data }) => {
             {data.clientEmail && (
               <Text style={styles.detailText}>{data.clientEmail}</Text>
             )}
-            {data.clientPhone && (
-              <Text style={styles.detailText}>{data.clientPhone}</Text>
+            {data.clientDateOfBirth && (
+              <Text style={styles.detailText}>{data.clientDateOfBirth}</Text>
             )}
+            <Text>{data.clientSocNumber ?? "missing info"}</Text>
           </View>
         </View>
 

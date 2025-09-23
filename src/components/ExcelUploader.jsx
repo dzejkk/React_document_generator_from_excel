@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import * as XLSX from "xlsx";
 import style from "./ExcelUploader.module.css";
+import { formatDate } from "../utils/dateHelpers";
 
 const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -25,7 +26,10 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
           const worksheet = workbook.Sheets[worksheetName];
 
           // Convert to JSON array
-          const jsonData = XLSX.utils.sheet_to_json(worksheet);
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+            raw: false,
+            cellDates: true,
+          });
 
           if (jsonData.length === 0) {
             throw new Error("Excel file appears to be empty");
@@ -36,20 +40,24 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
 
           // Map Excel columns to our invoice data structure
           // Mapping your actual column headers to invoice fields
-          const invoiceData = {
+          const CHZP_DATA = {
             // Basic invoice info
-            invoiceNumber: lastRow["ID1"] || `INV-${Date.now()}`,
-            date: formatDate(
-              lastRow["Date of confirmation of disease"] || new Date()
-            ),
-            dueDate: formatDate(addDays(new Date(), 30)), // 30 days from today
+            CHZP_Detection:
+              formatDate(
+                lastRow["Date of detection of occupational disease"]
+              ) || "data missing",
+            CHZP_Location_line: lastRow["Working Line"] || "data missing",
+            CHZP_Location_shop: lastRow["Department"] || "data missing",
 
             // Client information (using Full Name as client)
             clientName:
               lastRow["Full Name (of the subject )"] || "Name Missing",
-            clientAddress: lastRow["Department"] || "",
+            clientAddress:
+              lastRow["Adress of the Subject"] || "Adress is missing",
             clientEmail: lastRow["Email"] || "",
-            clientPhone: "", // Not available in your data
+            clientDateOfBirth: lastRow["Date of birth"] || "Date is missing",
+            clientSocNumber:
+              lastRow["Birth number"] || "Birth number is missing",
 
             // Company info (you can hardcode these)
             companyName: "Your Company Name",
@@ -76,12 +84,12 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
           };
 
           // Calculate totals
-          invoiceData.taxAmount = invoiceData.subtotal * invoiceData.taxRate;
-          invoiceData.total = invoiceData.subtotal + invoiceData.taxAmount;
-          invoiceData.amount = invoiceData.total; // For preview display
+          CHZP_DATA.taxAmount = CHZP_DATA.subtotal * CHZP_DATA.taxRate;
+          CHZP_DATA.total = CHZP_DATA.subtotal + CHZP_DATA.taxAmount;
+          CHZP_DATA.amount = CHZP_DATA.total; // For preview display
 
-          console.log("Parsed invoice data:", invoiceData);
-          onDataExtracted(invoiceData);
+          console.log("Parsed invoice data:", CHZP_DATA);
+          onDataExtracted(CHZP_DATA);
         } catch (err) {
           console.error("Error parsing Excel file:", err);
           setError(`Error parsing Excel file: ${err.message}`);
@@ -101,16 +109,6 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
   );
 
   // Helper functions
-  const formatDate = (dateValue) => {
-    if (!dateValue) return new Date().toISOString().split("T")[0];
-
-    const date = new Date(dateValue);
-    if (isNaN(date.getTime())) {
-      return new Date().toISOString().split("T")[0];
-    }
-
-    return date.toISOString().split("T")[0];
-  };
 
   const addDays = (date, days) => {
     const result = new Date(date);
