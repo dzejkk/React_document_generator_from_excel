@@ -1,124 +1,12 @@
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Font,
-  Image,
-} from "@react-pdf/renderer";
-
-import logoSoc from "../assets/logo_soc.png";
-
-Font.register({
-  family: "Roboto",
-  fonts: [
-    {
-      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
-      fontWeight: "normal",
-    },
-    {
-      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
-      fontWeight: "bold",
-    },
-  ],
-}); // need for Slovak Language
-
-// PDF Styles
-
-const styles = StyleSheet.create({
-  page: {
-    padding: 38,
-    fontSize: 10,
-    lineHeight: 1.3,
-    fontFamily: "Roboto",
-  },
-
-  value: {
-    fontWeight: "bold",
-    paddingLeft: 4,
-  },
-
-  row: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    margin: 4,
-  },
-
-  rowTwo: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingLeft: 80,
-    marginBottom: 6,
-  },
-
-  rowThree: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingLeft: 40,
-    marginBottom: 6,
-  },
-
-  headerTwo: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    margin: 8,
-  },
-  subtitle: {
-    textAlign: "center",
-    margin: 6,
-  },
-  crossed: {
-    textDecoration: "line-through",
-    marginLeft: 4,
-  },
-  logo: {
-    width: 140,
-    margin: 5,
-  },
-  mainContainer: {
-    border: "1px solid black",
-    padding: 8,
-    margin: 8,
-  },
-  signature: {
-    textAlign: "center",
-    maxWidth: 280,
-    marginLeft: 250,
-  },
-  signatureHeading: {
-    fontWeight: "bold",
-  },
-  underTextSignature: {
-    width: "250",
-    textAlign: "center",
-  },
-});
-
-const Spacer = ({ height = 10 }) => <View style={{ height }} />; // must be outside of the component wtf ?!!!!!!!!!!!!!
-
-const DocumentTemplate = ({ data }) => {
-  // Ensure data exists
-  if (!data) {
-    return (
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <Text>No data provided</Text>
-        </Page>
-      </Document>
-    );
-  }
-
-  return (
-    <Document>
+ <Document>
       <Page style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
+          {" "}
           <Image src={logoSoc} style={styles.logo} />
         </View>
         {/* Subtitle */}
-        <Text style={styles.headerTwo}>Oznámenie poistnej udalosti</Text>
+        <Text style={styles.headerTwo}>Oznámenie poistnej udalosti </Text>
         <Text style={styles.subtitle}>
           k úrazovému poisteniu podľa § 231 ods. 1 písm. h) až j) zákona č.
           461/2003 Z. z. o sociálnom poistení v znení neskorších predpisov
@@ -128,6 +16,7 @@ const DocumentTemplate = ({ data }) => {
         <View style={styles.row}>
           <Text style={styles.label}>Poistná udalosť:</Text>
           <Text style={styles.crossed}>pracovný úraz</Text>
+          <Text style={styles.value}></Text>
         </View>
         <View style={styles.rowTwo}>
           <Text style={styles.label}>choroba z povolania</Text>
@@ -140,6 +29,7 @@ const DocumentTemplate = ({ data }) => {
               1. IČO/RČ zodpovedného zamestnávateľa:
             </Text>
             <Text style={styles.value}>
+              {" "}
               35876832 ŠKEČ (SK NACE Rev.2;): 29100
             </Text>
           </View>
@@ -160,12 +50,12 @@ const DocumentTemplate = ({ data }) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>
-              4. Adresa miesta útvaru zodpovedného zamestnávateľa, ktorý vedie
+              4.Adresa miesta útvaru zodpovedného zamestnávateľa, ktorý vedie
               evidenciu miezd, ak nie je totožné s adresou jeho sídla:
             </Text>
             <Text style={styles.value}>totožné</Text>
           </View>
-          {/* 5 */}
+          {/*  5 */}
           <View style={styles.row}>
             <Text style={styles.label}>
               5. DÁTUM VZNIKU POISTNEJ UDALOSTI (DÁLEJ LEN „PU“):
@@ -182,9 +72,7 @@ const DocumentTemplate = ({ data }) => {
               v dôsledku choroby z povolania - dátum zistenia choroby z
               povolania:
             </Text>
-            <Text style={styles.value}>
-              {data.CHZP_Detection ?? "missing data"}
-            </Text>
+            <Text style={styles.value}>{data.CHZP_Detection}</Text>
           </View>
           {/* 6 */}
           <View style={styles.row}>
@@ -194,8 +82,7 @@ const DocumentTemplate = ({ data }) => {
             </Text>
             <Text style={styles.value}>
               Kia Slovakia s.r.o., Sv. Jána Nepomuckého 1282/1, Teplička nad
-              Váhom 013 01, {data.CHZP_Location_shop ?? "missing data"}
-              {data.CHZP_Location_line ?? "missing data"}
+              Váhom 013 01, {data.CHZP_Location_shop} {data.CHZP_Location_line}
             </Text>
           </View>
           {/* 7 */}
@@ -203,26 +90,20 @@ const DocumentTemplate = ({ data }) => {
             <Text style={styles.label}>
               7. Poškodený zamestnanec: meno, priezvisko, titul:
             </Text>
-            <Text style={styles.value}>
-              {data.clientName ?? "missing data"}
-            </Text>
+            <Text style={styles.value}> {data.clientName}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>
               adresa bydliska – ulica, obec, PSČ, okres:
             </Text>
-            <Text style={styles.value}>
-              {data.clientAddress ?? "missing data"}
-            </Text>
+            <Text style={styles.value}>{data.clientAddress}</Text>
           </View>
           {/* 8 */}
           <View style={styles.row}>
             <Text style={styles.label}>
               8. Dátum narodenia poškodeného zamestnanca:
             </Text>
-            <Text style={styles.value}>
-              {data.clientDateOfBirth ?? "missing data"}
-            </Text>
+            <Text style={styles.value}> {data.clientDateOfBirth}</Text>
           </View>
           {/* 9 */}
           <View style={styles.row}>
@@ -230,9 +111,7 @@ const DocumentTemplate = ({ data }) => {
               9. Identifikačné číslo socialného zabezpečenia poškodeného podľa §
               235 zákona:
             </Text>
-            <Text style={styles.value}>
-              {data.clientSocNumber ?? "missing data"}
-            </Text>
+            <Text style={styles.value}> {data.clientSocNumber}</Text>
           </View>
           {/* 10 */}
           <View style={styles.row}>
@@ -240,10 +119,10 @@ const DocumentTemplate = ({ data }) => {
               10. Pracovné zaradenie poškodeného v čase vzniku PU:
             </Text>
             <Text style={styles.value}>
-              8211000 Montážny Pracovník (operátor) v str.vyrobe
+              8211000 Montážny Pracovník ( operátor) v str.vyrobe
             </Text>
           </View>
-          {/* 11 */}
+          {/*  11  */}
           <View style={styles.row}>
             <Text style={styles.label}>
               11. Poškodený zamestnanec má nárok na náhradu prijmu pri dočasnej
@@ -266,9 +145,9 @@ const DocumentTemplate = ({ data }) => {
             </Text>
           </View>
           <Text style={styles.value}>
-            {data.CHZP_Factor ?? "missing data"} (detail v prílohe)
+            {data.CHZP_Factor} (detail v prilohe)
           </Text>
-          {/* 13 */}
+          {/*  13 */}
           <View style={styles.row}>
             <Text style={styles.label}>
               13. Ak bola poistná udalosť spôsobená úmyselne, uveďte kým:
@@ -287,14 +166,15 @@ const DocumentTemplate = ({ data }) => {
           </View>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>*Hodiace sa označte „x“</Text>
+          <Text style={styles.label}> *Hodiace sa označte „x“</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>**Nehodiace sa prečiarknute</Text>
+          <Text style={styles.label}>**Nehodiace sa prečiarknite</Text>
         </View>
-        {/* Second Page */}
+        {/* second page */}
         <View style={styles.mainContainer}>
           {/* 15 */}
+
           <View style={styles.row}>
             <Text style={styles.label}>
               15. Ak boli v príčinnej súvislosti so vznikom poistnej udalosti
@@ -330,7 +210,7 @@ const DocumentTemplate = ({ data }) => {
             <Text style={styles.label}>
               - bolo spôsobené úrazom uznaným ako pracovný úraz podľa zákona:
             </Text>
-            <Text style={styles.value}>NIE</Text>
+            <Text style={styles.value}> NIE </Text>
           </View>
           <View style={styles.rowThree}>
             <Text style={styles.label}>
@@ -348,9 +228,7 @@ const DocumentTemplate = ({ data }) => {
             <Text style={styles.label}>
               - bolo spôsobené chorobou z povolania, uveďte akou:
             </Text>
-            <Text style={styles.value}>
-              {data.CHZP_Description ?? "missing data"}
-            </Text>
+            <Text style={styles.value}>{data.CHZP_Description}</Text>
           </View>
           {/* 19 */}
           <View style={styles.row}>
@@ -404,9 +282,10 @@ const DocumentTemplate = ({ data }) => {
             <Text style={styles.value}>---</Text>
           </View>
         </View>
-        {/* Footer */}
+        {/* end of the document body */}
+        {/* FOOTER */}
         <View>
-          <Text>Vybavuje: Mgr.{data.responsibilityName ?? "missing data"}</Text>
+          <Text>Vybavuje: Mgr.{data.responsibilityName}</Text>
           <Text>
             Telefón a e-mail zodpovedného zamestnávateľa: +421 41 515 2258,{" "}
             {data.responsibilityEmail}
@@ -431,7 +310,7 @@ const DocumentTemplate = ({ data }) => {
           <Text style={styles.signatureHeading}>Ing. Andrea Hánová</Text>
           <Spacer />
           <Text>
-            ....................................................................
+            .....................................................................
           </Text>
           <Text style={styles.underTextSignature}>
             meno a podpis štatutárneho zástupcu zodpovedného zamestnávateľa a
@@ -440,7 +319,3 @@ const DocumentTemplate = ({ data }) => {
         </View>
       </Page>
     </Document>
-  );
-};
-
-export default DocumentTemplate;

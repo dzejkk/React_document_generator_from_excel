@@ -50,6 +50,8 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
             CHZP_Location_shop: lastRow["Department"] || "data missing",
             CHZP_Factor:
               lastRow["Description of the  harmfull factor"] ?? "data missing",
+            CHZP_Description:
+              lastRow["Description of the disease"] ?? "data missing",
 
             // Client information (using Full Name as client)
             clientName:
@@ -62,33 +64,16 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
               lastRow["Birth number"] || "Birth number is missing",
 
             // Company info (you can hardcode these)
-            companyName: "Your Company Name",
+            responsibilityName:
+              lastRow["SE member ( responsibility )"] ?? "missing data",
             companyAddress: "Your Company Address",
             companyPhone: "Your Phone Number",
-            companyEmail: "your@email.com",
-
-            // Invoice items - create from your data
-            items: [
-              {
-                description: `${lastRow["Working Line"] || "Service"} - ${
-                  lastRow["Positions"] || "Position"
-                }`,
-                quantity: 1,
-                rate: 1000.0, // You can set default rate or add this to Excel
-                amount: 1000.0,
-              },
-            ],
+            responsibilityEmail: lastRow["Email"] ?? "missing data",
 
             // Calculations (you can set defaults or add to Excel)
-            subtotal: 1000.0,
-            taxRate: 0.1, // 10% default
-            notes: `Risk Category: ${lastRow["Risk Category"] || "N/A"}`,
           };
 
           // Calculate totals
-          CHZP_DATA.taxAmount = CHZP_DATA.subtotal * CHZP_DATA.taxRate;
-          CHZP_DATA.total = CHZP_DATA.subtotal + CHZP_DATA.taxAmount;
-          CHZP_DATA.amount = CHZP_DATA.total; // For preview display
 
           console.log("Parsed invoice data:", CHZP_DATA);
           onDataExtracted(CHZP_DATA);
@@ -109,14 +94,6 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
     },
     [onDataExtracted, setIsLoading]
   );
-
-  // Helper functions
-
-  const addDays = (date, days) => {
-    const result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-  };
 
   // Handle file drop
   const handleDrop = useCallback(
