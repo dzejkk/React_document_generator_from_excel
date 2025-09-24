@@ -4,10 +4,16 @@
 
 
 simple app, to read excel file, its reading last row and extracting data form it, and creating custom pdf
-file for simple printing.
-
-In the future  i want oadd feature that it wil create multiple different pdfs, from same data
+files for simple printing and using, no manually creating word/pdf documents
 
 
-## bug is located in the PDF template, is caused by whitespaces !!!!!
-### bug was localized for Spacer component, it was defined inside of the Document template what was casuing the issue  OMG |||
+you can create your own template.jsx, and print your custom document
+
+for HEADERS check, example xlxs. file in the  example  file folder
+
+
+
+
+ 1. bug was localized for Spacer component, it was defined inside of the Document component that what was casuicausing the issue OMG 
+ 2. add loading spinner
+ 3. think about future updates
