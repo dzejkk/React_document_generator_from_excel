@@ -194,8 +194,8 @@ const DocumentTemplate = ({ data }) => {
             </Text>
             <Text style={styles.value}>
               Kia Slovakia s.r.o., Sv. Jána Nepomuckého 1282/1, Teplička nad
-              Váhom 013 01, {data.CHZP_Location_shop ?? "missing data"}
-              {data.CHZP_Location_line ?? "missing data"}
+              Váhom 013 01, HALA: {data.CHZP_Location_shop ?? "missing data"},
+              LINKA: {data.CHZP_Location_line ?? "missing data"}
             </Text>
           </View>
           {/* 7 */}

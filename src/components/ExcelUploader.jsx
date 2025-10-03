@@ -49,7 +49,7 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
             CHZP_Location_line: lastRow["Working Line"] || "data missing",
             CHZP_Location_shop: lastRow["Department"] || "data missing",
             CHZP_Factor:
-              lastRow["Description of the  harmfull factor"] ?? "data missing",
+              lastRow["Description of the harmfull factor"] ?? "data missing",
             CHZP_Description:
               lastRow["Description of the disease"] ?? "data missing",
 
@@ -59,9 +59,10 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
             clientAddress:
               lastRow["Adress of the Subject"] || "Adress is missing",
             clientEmail: lastRow["Email"] || "",
-            clientDateOfBirth: lastRow["Date of birth"] || "Date is missing",
+            clientDateOfBirth:
+              lastRow["Date of birth (DD-MM-YYYY)"] || "Date is missing",
             clientSocNumber:
-              lastRow["Birth number"] || "Birth number is missing",
+              lastRow["Birth number (0000000000)"] || "Birth number is missing",
 
             // Company info (you can hardcode these)
             responsibilityName:

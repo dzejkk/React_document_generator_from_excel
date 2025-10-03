@@ -226,7 +226,7 @@ const LetterTemplate = ({ data }) => {
 
         {/* Signature Section */}
         <View style={styles.signatureSection}>
-          <Text style={styles.signatureText}>Jakub Kontra</Text>
+          <Text style={styles.signatureText}>{data.responsibilityName}</Text>
           <Text style={styles.signatureText}>
             {"Oddelenie BOZP a životného prostredia"}
           </Text>
