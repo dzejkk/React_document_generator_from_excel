@@ -3,6 +3,7 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import DocumentTemplate from "../templates/DocumentTemplate";
 import LetterTemplate from "../templates/LetterTemplate";
 import style from "./DocumentPreview.module.css";
+import { BatchDownloader } from "../utils/batchDownloader";
 
 const DocumentPreview = ({ data }) => {
   const [showPreview, setShowPreview] = useState(true);
@@ -19,6 +20,12 @@ const DocumentPreview = ({ data }) => {
   return (
     <div className={style.documentPreview}>
       <div className={style.buttonContainer}>
+        <button
+          className={style.buttonTwo}
+          onClick={() => BatchDownloader(data)}
+        >
+          Download both files
+        </button>
         {/* Preview Toggle */}
         <button
           onClick={() => setShowPreview(!showPreview)}

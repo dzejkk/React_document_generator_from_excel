@@ -37,18 +37,19 @@ function App() {
                 <h3>Parsed Data Preview:</h3>
                 <div>
                   <p>
-                    <span>Name:</span> {documentData.clientName || "N/A"}
+                    <span className={style.fontMedium}>Name:</span>{" "}
+                    {documentData.clientName || "N/A"}
                   </p>
                   <p>
-                    <span className="font-medium">ID:</span>{" "}
-                    {documentData.invoiceNumber || "N/A"}
+                    <span className={style.fontMedium}>SOC ID:</span>{" "}
+                    {documentData.clientSocNumber || "N/A"}
                   </p>
                   <p>
-                    <span className="font-medium">Date:</span>{" "}
-                    {documentData.date || "N/A"}
+                    <span className={style.fontMedium}>Birth Date:</span>{" "}
+                    {documentData.clientDateOfBirth || "N/A"}
                   </p>
                   <p>
-                    <span className="font-medium">Department:</span>{" "}
+                    <span className={style.fontMedium}>Department:</span>{" "}
                     {documentData.clientAddress || "N/A"}
                   </p>
                 </div>

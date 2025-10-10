@@ -208,10 +208,7 @@ const ExcelUploader = ({ onDataExtracted, isLoading, setIsLoading }) => {
           Excel File Format:
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>
-            Column headers should include: Full Name, ID1, Date of confirmation
-            of disease, Working Line, Department
-          </li>
+          <li>Check template in the Publick folder</li>
           <li>
             The last row in your Excel sheet will be used for the document
           </li>

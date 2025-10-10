@@ -17,7 +17,22 @@
   font-weight: 700;
   border-radius: var(--size-selector);
   border: none;
-  width: 13rem;
+  width: 10rem;
+  font-size: 1rem;
+}
+
+.buttonTwo {
+  background-color: var(--color-info-content);
+  color: white;
+  padding-block: var(--padding-sm);
+  padding-inline: var(--padding-md);
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  border-radius: var(--size-selector);
+  border: none;
+  width: 10rem;
   font-size: 1rem;
 }
 
@@ -35,7 +50,7 @@
   font-weight: 700;
   border-radius: var(--size-selector);
   border: none;
-  width: 15rem;
+  width: 12rem;
   text-decoration: none;
   font-size: 1rem;
 }
