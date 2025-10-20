@@ -5,11 +5,11 @@ import DocumentPreview from "./components/DocumentPreview";
 import style from "./App.module.css";
 
 function App() {
-  const [documentData, setDocumentDatadocumentData] = useState(null);
+  const [documentData, setDocumentData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleExcelData = (data) => {
-    setDocumentDatadocumentData(data);
+    setDocumentData(data);
   };
 
   return (
